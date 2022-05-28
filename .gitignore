@@ -7,3 +7,6 @@ logs
 
 # deps
 node_modules
+
+# build folder
+dist

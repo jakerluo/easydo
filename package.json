@@ -13,7 +13,8 @@
   "description": "iyo 工具集合",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "commit": "easydo-tools commit"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,7 @@
     "url": "https://github.com/jakerluo/iyo/issues"
   },
   "devDependencies": {
+    "@easydo/tools": "workspace:^0.0.0",
     "prettier": "^2.6.2"
   }
 }

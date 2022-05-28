@@ -1,0 +1,33 @@
+{
+  "name": "@easydo/tools",
+  "version": "0.0.0",
+  "description": "工具集合",
+  "main": "dist/index.js",
+  "bin": {
+    "easydo-tools": "./bin/easydo-tools"
+  },
+  "scripts": {
+    "build": "rollup --config rollup.config.ts --configPlugin typescript",
+    "start": "rollup --config rollup.config.ts --configPlugin typescript -w"
+  },
+  "keywords": [
+    "tools"
+  ],
+  "author": "jakerluo",
+  "license": "ISC",
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^8.3.2",
+    "@types/node": "^17.0.36",
+    "rollup": "^2.75.0",
+    "source-map-support": "^0.5.21",
+    "tslib": "^2.4.0",
+    "typescript": "^4.7.2"
+  },
+  "dependencies": {
+    "cac": "^6.7.12",
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "^3.3.0",
+    "import-local": "^3.1.0",
+    "read-pkg-up": "7.0.1"
+  }
+}
