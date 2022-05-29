@@ -44,6 +44,12 @@ class GitFlow {
     await this.selectAddFiles()
     await this.addToStaged()
     await this.commit()
+    await this.pushToRemote()
+  }
+
+  private async pushToRemote() {
+    const currentBranch = await git.currentBranch({ fs, dir: '', fullname: false })
+    console.log('currentBranch', currentBranch)
   }
 
   private async commit() {
@@ -51,7 +57,10 @@ class GitFlow {
     bootstrap({
       cliPath: join(dirname(path), 'node_modules', 'commitizen'),
       config: {
-        path: 'cz-conventional-changelog'
+        path: 'cz-conventional-changelog',
+        done: () => {
+          console.log('done')
+        }
       }
     })
   }

@@ -6,6 +6,7 @@ declare module 'commitizen/dist/commitizen' {
 declare module 'commitizen/dist/cli/strategies' {
   export interface BootstrapConfig {
     path: string
+    done: () => void
   }
 
   export interface BootstrapEnv {
