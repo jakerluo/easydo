@@ -7,10 +7,9 @@ tools
   .option('-a, --all', 'select all changed files')
   .action(async () => {
     const { commit } = await import('./commit')
-    commit()
+    await commit()
   })
 
 tools.help()
 tools.version(require('../../package.json').version)
-
 tools.parse()

@@ -7,7 +7,8 @@ import * as process from 'process'
 import prompts, { Choice } from 'prompts'
 
 export async function commit() {
-  new GitFlow()
+  const gitFlow = new GitFlow()
+  await gitFlow.init()
 }
 
 export type Status =
@@ -34,11 +35,7 @@ class GitFlow {
 
   private needAddFiles: string[] = []
 
-  constructor() {
-    this.init().then()
-  }
-
-  private async init() {
+  async init() {
     const files = await git.listFiles({ fs, dir: '' })
     await this.filterChangedFiles(files)
     await this.selectAddFiles()
@@ -68,11 +65,7 @@ class GitFlow {
       bootstrap({
         cliPath: join(dirname(path), 'node_modules', 'commitizen'),
         config: {
-          path: 'cz-conventional-changelog',
-          done: () => {
-            resolve()
-            console.log('done')
-          }
+          path: 'cz-emoji'
         }
       })
     })
