@@ -2,6 +2,8 @@ import { cac } from 'cac'
 
 const tools = cac('easydo')
 
+tools.option('-c, --config <file>', `[string] use specified config file`)
+
 tools
   .command('commit')
   .option('-a, --all', 'select all changed files')

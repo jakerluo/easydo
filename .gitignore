@@ -10,3 +10,6 @@ node_modules
 
 # build folder
 dist
+
+# env
+.env.local

@@ -7,9 +7,12 @@ import logger from '../logger'
 import cfork from 'cfork'
 import { join } from 'path'
 import { ChildProcess } from 'child_process'
+import type { InlineConfig, ResolvedConfig } from '../config'
+import { resolveConfig } from '../config'
 
-export async function commit() {
-  const gitFlow = new GitFlow()
+export async function commit(inlineConfig: InlineConfig = {}) {
+  const config = await resolveConfig(inlineConfig)
+  const gitFlow = new GitFlow(config)
   await gitFlow.init()
 }
 
@@ -36,6 +39,11 @@ class GitFlow {
   allFilesStatus: FileStatus[] = []
 
   private needAddFiles: string[] = []
+  private config: ResolvedConfig
+
+  constructor(config: ResolvedConfig) {
+    this.config = config
+  }
 
   async init() {
     const files = await git.listFiles({ fs, dir: '' })
@@ -55,7 +63,8 @@ class GitFlow {
       http,
       dir: '',
       remote: 'origin',
-      ref: currentBranch
+      ref: currentBranch,
+      onAuth: () => ({ username: this.config.env.GITHUB_TOKEN })
     })
     if (pushResult.ok) {
       logger.info(`push to remote, branch is ${currentBranch}`)

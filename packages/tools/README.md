@@ -7,3 +7,7 @@
 
 ## commit
 代替 `git add .` => `git commit` => `git push` 
+
+
+### easydo config keys
+#### GITHUB_TOKEN
