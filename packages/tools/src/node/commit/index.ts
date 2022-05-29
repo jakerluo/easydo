@@ -52,27 +52,43 @@ class GitFlow {
     await this.addToStaged()
     await this.preCommit()
     await this.commit()
+    await this.prePush()
     await this.pushToRemote()
+  }
+
+  private async prePush() {
+    const { need } = await prompts({
+      type: 'confirm',
+      message: 'do you need push to remote?',
+      name: 'need'
+    })
+    if (!need) {
+      process.exit(1)
+    }
   }
 
   private async pushToRemote() {
     const currentBranch = await git.currentBranch({ fs, dir: '', fullname: false })
-    logger.info('currentBranch', currentBranch)
-    logger.info('GITHUB_TOKEN', this.config.env.GITHUB_TOKEN)
+    logger.debug('GITHUB_TOKEN', this.config.env.GITHUB_TOKEN)
+
+    const GITHUB_TOKEN = this.config.env.GITHUB_TOKEN
+    if (!GITHUB_TOKEN) {
+      logger.error('push to remote should be have GITHUB_TOKEN')
+    }
+
     if (!currentBranch) return
     const pushResult = await git.push({
       fs,
       http,
       dir: '',
-      onAuth: () => ({ username: this.config.env.GITHUB_TOKEN }),
+      onAuth: () => ({ username: GITHUB_TOKEN }),
       onAuthFailure: (url, auth) => {
         console.log(url, auth)
       }
     })
     if (pushResult.ok) {
-      logger.info(`push to remote, branch is ${currentBranch}`)
+      logger.info(`push to remote, current branch is ${currentBranch}`)
     }
-    console.log(pushResult)
   }
 
   private async preCommit() {
@@ -81,7 +97,9 @@ class GitFlow {
       message: 'do you need commit?',
       name: 'need'
     })
-    return need
+    if (!need) {
+      process.exit(1)
+    }
   }
 
   private async commit() {
