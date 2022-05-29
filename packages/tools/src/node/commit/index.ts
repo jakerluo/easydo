@@ -1,4 +1,5 @@
 import git from 'isomorphic-git'
+import http from 'isomorphic-git/http/node'
 import * as fs from 'fs'
 import * as process from 'process'
 import prompts, { Choice } from 'prompts'
@@ -47,8 +48,18 @@ class GitFlow {
   }
 
   private async pushToRemote() {
-    const currentBranch = await git.currentBranch({ fs, dir: '', fullname: false })
-    logger.info('currentBranch', currentBranch)
+    const pushResult = await git.push({
+      fs,
+      http,
+      dir: '',
+      remote: 'origin',
+      ref: 'main'
+    })
+    if (pushResult.ok) {
+      logger.info('push to remote')
+    } else {
+      logger.error(pushResult.error)
+    }
   }
 
   private async preCommit() {
