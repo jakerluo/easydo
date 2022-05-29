@@ -68,7 +68,7 @@ export async function resolveConfig(
     }
   }
 
-  logger.info('resolved config', resolved)
+  logger.debug('resolved config', resolved)
 
   return resolved
 }
