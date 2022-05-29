@@ -18,7 +18,8 @@ function createNodeConfig(isProduction: boolean) {
   return defineConfig({
     ...sharedNodeOptions,
     input: {
-      cli: resolve(__dirname, 'src/node/cli.ts')
+      cli: resolve(__dirname, 'src/node/cli.ts'),
+      commit: resolve(__dirname, 'src/node/commit.ts')
     },
     output: {
       ...sharedNodeOptions.output,
@@ -37,6 +38,7 @@ function createNodeConfig(isProduction: boolean) {
         target: 'es2019',
         include: ['src/**/*.ts', 'types/**'],
         esModuleInterop: true,
+        allowSyntheticDefaultImports: false,
         ...(isProduction ? {} : { declaration: true, declarationDir: resolve(__dirname, 'dist/') })
       })
     ]

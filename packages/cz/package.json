@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@commitlint/load": "^17.0.0",
+    "cfork": "^1.8.0",
     "commitizen": "^4.2.4",
     "conventional-commit-types": "^3.0.0",
     "cz-conventional-changelog": "^3.3.0"

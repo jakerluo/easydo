@@ -6,7 +6,7 @@ tools
   .command('commit')
   .option('-a, --all', 'select all changed files')
   .action(async () => {
-    const { commit } = await import('./commit')
+    const { commit } = await import('./commit/index')
     await commit()
   })
 

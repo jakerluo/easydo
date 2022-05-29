@@ -28,6 +28,7 @@
     "@types/prompts": "^2.0.14",
     "@types/uuid": "^8.3.4",
     "cac": "^6.7.12",
+    "cfork": "^1.8.0",
     "chalk": "4.1.2",
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",

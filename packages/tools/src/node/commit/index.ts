@@ -1,12 +1,10 @@
-import { bootstrap } from './git-cz'
 import git from 'isomorphic-git'
-import { dirname, join } from 'path'
-import readPkgUp from 'read-pkg-up'
 import * as fs from 'fs'
 import * as process from 'process'
 import prompts, { Choice } from 'prompts'
 import logger from '../logger'
-import * as console from 'console'
+import cfork from 'cfork'
+import { join } from 'path'
 
 export async function commit() {
   const gitFlow = new GitFlow()
@@ -62,16 +60,11 @@ class GitFlow {
   }
 
   private async commit() {
-    const { path } = (await readPkgUp({ cwd: __dirname })) as readPkgUp.NormalizedReadResult
     return new Promise<void>((resolve) => {
-      bootstrap({
-        cliPath: join(dirname(path), 'node_modules', 'commitizen'),
-        config: {
-          path: join(dirname(path), 'node_modules', '@easydo/cz'),
-          done: () => {
-            console.log(1)
-          }
-        }
+      console.log(join(__dirname, '../commit.js'))
+      cfork({
+        exec: join(__dirname, '../commit.js'),
+        count: 1
       })
     })
   }
