@@ -92,7 +92,8 @@ class GitFlow {
         .on('fork', (worker: { process: ChildProcess }) => {
           logger.info(' new worker start', worker.process.pid)
         })
-        .on('disconnect', () => {
+        .on('disconnect', (worker: { process: ChildProcess }) => {
+          logger.info(' new worker start', worker.process.pid)
           resolve()
         })
     })
