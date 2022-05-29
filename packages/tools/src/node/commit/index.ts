@@ -116,7 +116,8 @@ class GitFlow {
           logger.info(' new worker disconnect', worker.process.pid)
           resolve()
         })
-        .on('exit', (worker: { process: ChildProcess }) => {
+        .on('exit', (worker: { process: ChildProcess }, code: number) => {
+          console.log(code)
           logger.info(' worker exit', worker.process.pid)
           process.exit(1)
         })
