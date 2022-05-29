@@ -1,5 +1,3 @@
-'format cjs'
-
 const options = require('cz-conventional-changelog')
 
 module.exports = {

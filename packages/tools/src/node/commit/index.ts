@@ -66,7 +66,8 @@ class GitFlow {
       cfork({
         exec: join(__dirname, '../commit.js'),
         count: 1,
-        refork: false
+        refork: false,
+        windowsHide: true
       })
         .on('fork', (worker: { process: ChildProcess }) => {
           logger.info(' new worker start', worker.process.pid)
