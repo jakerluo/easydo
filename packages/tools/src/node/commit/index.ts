@@ -63,7 +63,10 @@ class GitFlow {
       fs,
       http,
       dir: '',
-      onAuth: () => ({ username: this.config.env.GITHUB_TOKEN })
+      onAuth: () => ({ username: this.config.env.GITHUB_TOKEN }),
+      onAuthFailure: (url, auth) => {
+        console.log(url, auth)
+      }
     })
     if (pushResult.ok) {
       logger.info(`push to remote, branch is ${currentBranch}`)
