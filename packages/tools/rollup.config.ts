@@ -25,7 +25,8 @@ function createNodeConfig(isProduction: boolean) {
       sourcemap: !isProduction
     },
     external: [
-      'commitizen/dist/cli/git-cz',
+      'commitizen/dist/commitizen',
+      'commitizen/dist/cli/strategies',
       ...Object.keys(require('./package.json').dependencies),
       ...(isProduction ? [] : Object.keys(require('./package.json').devDependencies))
     ],
@@ -34,7 +35,7 @@ function createNodeConfig(isProduction: boolean) {
         tsconfig: 'src/node/tsconfig.json',
         module: 'esnext',
         target: 'es2019',
-        include: ['src/**/*.ts'],
+        include: ['src/**/*.ts', 'types/**'],
         esModuleInterop: true,
         ...(isProduction ? {} : { declaration: true, declarationDir: resolve(__dirname, 'dist/') })
       })
