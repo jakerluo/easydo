@@ -93,7 +93,7 @@ class GitFlow {
           logger.info(' new worker start', worker.process.pid)
         })
         .on('disconnect', (worker: { process: ChildProcess }) => {
-          logger.info(' new worker start', worker.process.pid)
+          logger.info(' new worker disconnect', worker.process.pid)
           resolve()
         })
     })
