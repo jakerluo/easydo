@@ -5,7 +5,7 @@ import prompts, { Choice } from 'prompts'
 import logger from '../logger'
 import cfork from 'cfork'
 import { join } from 'path'
-import { ChildProcess, fork } from 'child_process'
+import { ChildProcess } from 'child_process'
 
 export async function commit() {
   const gitFlow = new GitFlow()
@@ -65,7 +65,8 @@ class GitFlow {
       console.log(join(__dirname, '../commit.js'))
       cfork({
         exec: join(__dirname, '../commit.js'),
-        count: 1
+        count: 1,
+        refork: false
       })
         .on('fork', (worker: { process: ChildProcess }) => {
           logger.info(' new worker start', worker.process.pid)

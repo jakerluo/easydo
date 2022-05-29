@@ -1,13 +1,12 @@
 'format cjs'
 
 const options = require('cz-conventional-changelog')
-const path = require('path')
-const configLoader = require('commitizen').configLoader
 
-const toolPath = path.join(process.cwd(), 'node_modules', '@easydo/tools')
-
-const config = configLoader.load(undefined, __dirname) || {}
-
-console.log(toolPath, config)
-
-module.exports = options
+module.exports = {
+  prompter: function (cz, commit) {
+    options.prompter(cz, function (...params) {
+      commit(...params)
+      process.exit(1)
+    })
+  }
+}
