@@ -48,17 +48,17 @@ class GitFlow {
   }
 
   private async pushToRemote() {
+    const currentBranch = await git.currentBranch({ fs, dir: '', fullname: false })
+    if (!currentBranch) return
     const pushResult = await git.push({
       fs,
       http,
       dir: '',
       remote: 'origin',
-      ref: 'main'
+      ref: currentBranch
     })
     if (pushResult.ok) {
-      logger.info('push to remote')
-    } else {
-      logger.error(pushResult.error)
+      logger.info(`push to remote, branch is ${currentBranch}`)
     }
   }
 
