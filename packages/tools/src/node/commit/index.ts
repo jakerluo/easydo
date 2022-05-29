@@ -48,23 +48,14 @@ class GitFlow {
   async init() {
     const files = await git.listFiles({ fs, dir: '' })
     await this.filterChangedFiles(files)
-    await this.selectAddFiles()
-    await this.addToStaged()
-    await this.preCommit()
-    await this.commit()
-    await this.prePush()
-    await this.pushToRemote()
-  }
-
-  private async prePush() {
-    const { need } = await prompts({
-      type: 'confirm',
-      message: 'do you need push to remote?',
-      name: 'need'
-    })
-    if (!need) {
-      process.exit(1)
+    if (this.allChangedFiles.length) {
+      await this.selectAddFiles()
+      await this.addToStaged()
+      await this.preCheck()
     }
+    await this.commit()
+    await this.preCheck('do you need push to remote?')
+    await this.pushToRemote()
   }
 
   private async pushToRemote() {
@@ -91,12 +82,20 @@ class GitFlow {
     }
   }
 
-  private async preCommit() {
-    const { need } = await prompts({
-      type: 'confirm',
-      message: 'do you need commit?',
-      name: 'need'
-    })
+  private async preCheck(msg: string = 'please confirm!!!') {
+    const { need } = await prompts(
+      {
+        type: 'confirm',
+        message: msg,
+        name: 'need',
+        initial: true
+      },
+      {
+        onCancel() {
+          process.exit(1)
+        }
+      }
+    )
     if (!need) {
       process.exit(1)
     }
@@ -117,6 +116,10 @@ class GitFlow {
           logger.info(' new worker disconnect', worker.process.pid)
           resolve()
         })
+        .on('exit', (worker: { process: ChildProcess }) => {
+          logger.info(' worker exit', worker.process.pid)
+          process.exit(1)
+        })
     })
   }
 
@@ -126,7 +129,6 @@ class GitFlow {
       return
     }
     logger.info('no file change')
-    process.exit(1)
   }
 
   private async selectAddFiles() {
@@ -155,10 +157,6 @@ class GitFlow {
   private async filterChangedFiles(files: string[]) {
     this.allFilesStatus = await Promise.all(files.map((file) => this.filterChangedFile(file)))
     this.allChangedFiles = this.allFilesStatus.filter(([status]) => this.filterKeys.includes(status))
-    if (!this.allChangedFiles.length) {
-      logger.info('no file change')
-      process.exit(1)
-    }
   }
 
   private async filterChangedFile(file: string): Promise<FileStatus> {
