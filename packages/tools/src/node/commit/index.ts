@@ -65,7 +65,7 @@ class GitFlow {
       bootstrap({
         cliPath: join(dirname(path), 'node_modules', 'commitizen'),
         config: {
-          path: 'cz-emoji'
+          path: 'cz-conventional-changelog'
         }
       })
     })
