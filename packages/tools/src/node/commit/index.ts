@@ -54,14 +54,17 @@ class GitFlow {
 
   private async commit() {
     const { path } = (await readPkgUp({ cwd: __dirname })) as readPkgUp.NormalizedReadResult
-    bootstrap({
-      cliPath: join(dirname(path), 'node_modules', 'commitizen'),
-      config: {
-        path: 'cz-conventional-changelog',
-        done: () => {
-          console.log('done')
+    return new Promise<void>((resolve) => {
+      bootstrap({
+        cliPath: join(dirname(path), 'node_modules', 'commitizen'),
+        config: {
+          path: 'cz-conventional-changelog',
+          done: () => {
+            resolve()
+            console.log('done')
+          }
         }
-      }
+      })
     })
   }
 
