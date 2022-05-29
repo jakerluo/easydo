@@ -117,9 +117,10 @@ class GitFlow {
           resolve()
         })
         .on('exit', (worker: { process: ChildProcess }, code: number) => {
-          console.log(code)
-          logger.info(' worker exit', worker.process.pid)
-          process.exit(1)
+          if (code === null) {
+            logger.info(' worker exit', worker.process.pid)
+            process.exit(1)
+          }
         })
     })
   }
