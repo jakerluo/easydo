@@ -6,6 +6,7 @@ import * as fs from 'fs'
 import * as process from 'process'
 import prompts, { Choice } from 'prompts'
 import logger from '../logger'
+import * as console from 'console'
 
 export async function commit() {
   const gitFlow = new GitFlow()
@@ -48,7 +49,7 @@ class GitFlow {
 
   private async pushToRemote() {
     const currentBranch = await git.currentBranch({ fs, dir: '', fullname: false })
-    logger.log('currentBranch', currentBranch)
+    logger.info('currentBranch', currentBranch)
   }
 
   private async preCommit() {
