@@ -5,6 +5,7 @@ import readPkgUp from 'read-pkg-up'
 import * as fs from 'fs'
 import * as process from 'process'
 import prompts, { Choice } from 'prompts'
+import logger from '../logger'
 
 export async function commit() {
   const gitFlow = new GitFlow()
@@ -47,7 +48,7 @@ class GitFlow {
 
   private async pushToRemote() {
     const currentBranch = await git.currentBranch({ fs, dir: '', fullname: false })
-    console.log('currentBranch', currentBranch)
+    logger.log('currentBranch', currentBranch)
   }
 
   private async preCommit() {
@@ -65,7 +66,10 @@ class GitFlow {
       bootstrap({
         cliPath: join(dirname(path), 'node_modules', 'commitizen'),
         config: {
-          path: 'cz-conventional-changelog'
+          path: join(dirname(path), 'node_modules', '@easydo/cz'),
+          done: () => {
+            console.log(1)
+          }
         }
       })
     })
@@ -76,6 +80,7 @@ class GitFlow {
       await git.add({ fs, dir: process.cwd(), filepath: this.needAddFiles })
       return
     }
+    logger.info('no file change')
     process.exit(1)
   }
 
@@ -105,6 +110,10 @@ class GitFlow {
   private async filterChangedFiles(files: string[]) {
     this.allFilesStatus = await Promise.all(files.map((file) => this.filterChangedFile(file)))
     this.allChangedFiles = this.allFilesStatus.filter(([status]) => this.filterKeys.includes(status))
+    if (!this.allChangedFiles.length) {
+      logger.info('no file change')
+      process.exit(1)
+    }
   }
 
   private async filterChangedFile(file: string): Promise<FileStatus> {
