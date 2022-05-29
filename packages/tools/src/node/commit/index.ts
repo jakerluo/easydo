@@ -52,6 +52,8 @@ class GitFlow {
       await this.selectAddFiles()
       await this.addToStaged()
       await this.preCheck()
+    } else {
+      await this.preCheck('will push the staged files. please confirm have changed files not has staged?')
     }
     await this.commit()
     await this.preCheck('do you need push to remote?')
