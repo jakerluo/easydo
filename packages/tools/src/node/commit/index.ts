@@ -43,6 +43,7 @@ class GitFlow {
     await this.filterChangedFiles(files)
     await this.selectAddFiles()
     await this.addToStaged()
+    await this.preCommit()
     await this.commit()
     await this.pushToRemote()
   }
@@ -50,6 +51,15 @@ class GitFlow {
   private async pushToRemote() {
     const currentBranch = await git.currentBranch({ fs, dir: '', fullname: false })
     console.log('currentBranch', currentBranch)
+  }
+
+  private async preCommit() {
+    const { need } = await prompts({
+      type: 'confirm',
+      message: 'do you need commit?',
+      name: 'need'
+    })
+    return need
   }
 
   private async commit() {
