@@ -63,13 +63,12 @@ class GitFlow {
       fs,
       http,
       dir: '',
-      remote: 'origin',
-      ref: currentBranch,
       onAuth: () => ({ username: this.config.env.GITHUB_TOKEN })
     })
     if (pushResult.ok) {
       logger.info(`push to remote, branch is ${currentBranch}`)
     }
+    console.log(pushResult)
   }
 
   private async preCommit() {
