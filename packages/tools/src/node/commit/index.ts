@@ -58,7 +58,7 @@ class GitFlow {
   private async pushToRemote() {
     const currentBranch = await git.currentBranch({ fs, dir: '', fullname: false })
     logger.info('currentBranch', currentBranch)
-    logger.info('this.config.env.GITHUB_TOKEN', this.config.env.GITHUB_TOKEN)
+    logger.info('GITHUB_TOKEN', this.config.env.GITHUB_TOKEN)
     if (!currentBranch) return
     const pushResult = await git.push({
       fs,
