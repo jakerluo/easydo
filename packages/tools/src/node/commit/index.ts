@@ -57,6 +57,7 @@ class GitFlow {
 
   private async pushToRemote() {
     const currentBranch = await git.currentBranch({ fs, dir: '', fullname: false })
+    logger.info('currentBranch', currentBranch)
     if (!currentBranch) return
     const pushResult = await git.push({
       fs,
@@ -82,7 +83,6 @@ class GitFlow {
 
   private async commit() {
     return new Promise<void>((resolve) => {
-      console.log(join(__dirname, '../commit.js'))
       cfork({
         exec: join(__dirname, '../commit.js'),
         count: 1,
