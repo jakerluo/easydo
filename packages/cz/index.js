@@ -5,7 +5,9 @@ module.exports = {
     options.prompter(cz, function (...params) {
       commit(...params)
       console.log('commit exec')
-      process.exit(1)
+      setTimeout(() => {
+        process.exit(1)
+      }, 1000)
     })
   }
 }
