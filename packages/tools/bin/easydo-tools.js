@@ -8,7 +8,7 @@ if (!import.meta.url.includes('node_modules')) {
   } catch (e) {}
 }
 
-global.__tools_start_time = performance.now()
+global.__EDO_START_TIME__ = performance.now()
 
 const debugIndex = process.argv.findIndex((arg) => /^(?:-d|--debug)$/.test(arg))
 

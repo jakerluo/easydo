@@ -15,6 +15,7 @@
     "preinstall": "npx only-allow pnpm",
     "format": "prettier --write .",
     "commit": "easydo-tools commit",
+    "work": "easydo-tools work",
     "prepare": "husky install"
   },
   "repository": {

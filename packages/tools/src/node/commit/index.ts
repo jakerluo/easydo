@@ -11,6 +11,11 @@ import type { InlineConfig, ResolvedConfig } from '../config'
 import { resolveConfig } from '../config'
 import { dirname } from '../utils'
 
+export interface CommonOptions {
+  all?: boolean
+  force?: boolean
+}
+
 export async function commit(inlineConfig: InlineConfig = {}) {
   const config = await resolveConfig(inlineConfig)
   const gitFlow = new GitFlow(config)
@@ -151,8 +156,7 @@ class GitFlow {
         type: 'multiselect',
         name: 'select',
         message: 'select add files',
-        choices,
-        hint: 'aaa'
+        choices
       },
       {
         onCancel() {

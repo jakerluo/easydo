@@ -2,11 +2,12 @@ import chalk from 'chalk'
 import pkg from 'log4js'
 import type { Logger as Logger$0 } from 'log4js'
 import { v4 } from 'uuid'
+import emoji from 'node-emoji'
 
 const { configure, getLogger } = pkg
 export type Logger = Logger$0
 
-const key = `${chalk.magentaBright('easydo')}`
+const key = `${emoji.random().emoji} ${chalk.magentaBright('easydo')}`
 
 configure({
   appenders: {
