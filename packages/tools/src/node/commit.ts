@@ -5,7 +5,7 @@ import { dirname } from './utils'
 
 async function start() {
   const { path } = (await readPackageUp({ cwd: dirname(import.meta.url) })) as ReadResult
-  console.log('path', path, dirname$0(path))
+
   bootstrap({
     cliPath: join(dirname$0(path), 'node_modules', 'commitizen'),
     config: {
