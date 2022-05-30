@@ -2,9 +2,13 @@
   "name": "@easydo/tools",
   "version": "0.0.0",
   "description": "工具集合",
-  "main": "dist/index.js",
+  "type": "module",
+  "main": "./dist/node/index.js",
+  "module": "./dist/node/index.js",
+  "types": "./dist/node/index.d.ts",
+  "author": "jakerluo",
   "bin": {
-    "easydo-tools": "./bin/easydo-tools"
+    "easydo-tools": "./bin/easydo-tools.js"
   },
   "scripts": {
     "build": "rollup --config rollup.config.ts --configPlugin typescript",
@@ -13,9 +17,11 @@
   "keywords": [
     "tools"
   ],
-  "author": "jakerluo",
   "license": "ISC",
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
     "@rollup/plugin-typescript": "^8.3.2",
     "@types/node": "^17.0.36",
     "rollup": "^2.75.0",
@@ -29,7 +35,7 @@
     "@types/uuid": "^8.3.4",
     "cac": "^6.7.12",
     "cfork": "^1.8.0",
-    "chalk": "4.1.2",
+    "chalk": "^5.0.1",
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",
     "dotenv": "^16.0.1",
@@ -38,7 +44,7 @@
     "isomorphic-git": "^1.17.2",
     "log4js": "^6.5.2",
     "prompts": "^2.4.2",
-    "read-pkg-up": "7.0.1",
+    "read-pkg-up": "^9.1.0",
     "uuid": "^8.3.2"
   }
 }

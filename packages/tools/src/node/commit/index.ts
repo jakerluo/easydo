@@ -1,5 +1,5 @@
-import git from 'isomorphic-git'
-import http from 'isomorphic-git/http/node'
+import { listFiles, currentBranch, push, add, status } from 'isomorphic-git'
+import http from 'isomorphic-git/http/node/index.js'
 import * as fs from 'fs'
 import * as process from 'process'
 import prompts, { Choice } from 'prompts'
@@ -9,6 +9,7 @@ import { join } from 'path'
 import { ChildProcess } from 'child_process'
 import type { InlineConfig, ResolvedConfig } from '../config'
 import { resolveConfig } from '../config'
+import { dirname } from '../utils'
 
 export async function commit(inlineConfig: InlineConfig = {}) {
   const config = await resolveConfig(inlineConfig)
@@ -46,7 +47,7 @@ class GitFlow {
   }
 
   async init() {
-    const files = await git.listFiles({ fs, dir: '' })
+    const files = await listFiles({ fs, dir: '' })
     await this.filterChangedFiles(files)
     if (this.allChangedFiles.length) {
       await this.selectAddFiles()
@@ -61,7 +62,7 @@ class GitFlow {
   }
 
   private async pushToRemote() {
-    const currentBranch = await git.currentBranch({ fs, dir: '', fullname: false })
+    const currentBranchName = await currentBranch({ fs, dir: '', fullname: false })
     logger.debug('GITHUB_TOKEN', this.config.env.GITHUB_TOKEN)
 
     const GITHUB_TOKEN = this.config.env.GITHUB_TOKEN
@@ -69,8 +70,8 @@ class GitFlow {
       logger.error('push to remote should be have GITHUB_TOKEN')
     }
 
-    if (!currentBranch) return
-    const pushResult = await git.push({
+    if (!currentBranchName) return
+    const pushResult = await push({
       fs,
       http,
       dir: '',
@@ -80,7 +81,7 @@ class GitFlow {
       }
     })
     if (pushResult.ok) {
-      logger.info(`push to remote, current branch is ${currentBranch}`)
+      logger.info(`push to remote, current branch is ${currentBranchName}`)
     }
   }
 
@@ -104,9 +105,9 @@ class GitFlow {
   }
 
   private async commit() {
-    return new Promise<void>((resolve) => {
+    return new Promise<void>((onFulfilled) => {
       cfork({
-        exec: join(__dirname, '../commit.js'),
+        exec: join(dirname(import.meta.url), '../commit.js'),
         count: 1,
         refork: false,
         windowsHide: true
@@ -116,7 +117,7 @@ class GitFlow {
         })
         .on('disconnect', (worker: { process: ChildProcess }) => {
           logger.info(' new worker disconnect', worker.process.pid)
-          resolve()
+          onFulfilled()
         })
         .on('exit', (worker: { process: ChildProcess }, code: number) => {
           if (code === null) {
@@ -129,7 +130,7 @@ class GitFlow {
 
   private async addToStaged() {
     if (this.needAddFiles.length) {
-      await git.add({ fs, dir: process.cwd(), filepath: this.needAddFiles })
+      await add({ fs, dir: process.cwd(), filepath: this.needAddFiles })
       return
     }
     logger.info('no file change')
@@ -164,7 +165,7 @@ class GitFlow {
   }
 
   private async filterChangedFile(file: string): Promise<FileStatus> {
-    const status = await git.status({ fs, dir: process.cwd(), filepath: file })
-    return [status, file]
+    const _status = await status({ fs, dir: process.cwd(), filepath: file })
+    return [_status, file]
   }
 }

@@ -1,13 +1,14 @@
 import chalk from 'chalk'
-import * as log4js from 'log4js'
+import pkg from 'log4js'
 import type { Logger as Logger$0 } from 'log4js'
 import { v4 } from 'uuid'
 
+const { configure, getLogger } = pkg
 export type Logger = Logger$0
 
 const key = `${chalk.magentaBright('easydo')}`
 
-log4js.configure({
+configure({
   appenders: {
     [key]: { type: 'stdout' }
   },
@@ -17,7 +18,7 @@ log4js.configure({
   }
 })
 
-const logger: Logger = log4js.getLogger(key)
+const logger: Logger = getLogger(key)
 
 logger.level = process.env.TITIAN_LOG_LEVEL || 'info'
 

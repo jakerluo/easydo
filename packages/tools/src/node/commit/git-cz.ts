@@ -1,5 +1,5 @@
-import { configLoader } from 'commitizen/dist/commitizen'
-import { BootstrapEnv, git as useGitStrategy, gitCz as useGitCzStrategy } from 'commitizen/dist/cli/strategies'
+import { configLoader } from 'commitizen/dist/commitizen.js'
+import { BootstrapEnv, git as useGitStrategy, gitCz as useGitCzStrategy } from 'commitizen/dist/cli/strategies.js'
 
 /**
  * This is the main cli entry point.

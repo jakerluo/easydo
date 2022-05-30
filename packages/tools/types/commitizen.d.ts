@@ -1,9 +1,9 @@
-declare module 'commitizen/dist/commitizen' {
+declare module 'commitizen/dist/commitizen.js' {
   export class configLoader {
     static load(): void
   }
 }
-declare module 'commitizen/dist/cli/strategies' {
+declare module 'commitizen/dist/cli/strategies.js' {
   export interface BootstrapConfig {
     path?: string
     commitizen?: BootstrapConfig

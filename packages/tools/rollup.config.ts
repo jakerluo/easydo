@@ -1,18 +1,47 @@
 import { resolve } from 'path'
-import { defineConfig } from 'rollup'
+import { defineConfig, Plugin } from 'rollup'
+import nodeResolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
+import commonjs from '@rollup/plugin-commonjs'
+import json from '@rollup/plugin-json'
 
 const sharedNodeOptions = defineConfig({
+  treeshake: {
+    moduleSideEffects: 'no-external',
+    propertyReadSideEffects: false,
+    tryCatchDeoptimization: false
+  },
   output: {
     dir: resolve(__dirname, 'dist'),
     entryFileNames: 'node/[name].js',
     chunkFileNames: 'node/chunks/[name]-[hash].js',
     exports: 'named',
-    format: 'cjs',
+    format: 'esm',
+    externalLiveBindings: false,
     freeze: false,
     sourcemap: true
   }
 })
+
+function createNodePlugins(isProduction: boolean, sourceMap: boolean, declarationDir: string | false): Plugin[] {
+  return [
+    nodeResolve({ preferBuiltins: true }),
+    typescript({
+      tsconfig: 'src/node/tsconfig.json',
+      module: 'esnext',
+      target: 'es2020',
+      include: ['src/**/*.ts', 'types/**'],
+      esModuleInterop: true,
+      sourceMap,
+      declaration: declarationDir !== false,
+      declarationDir: declarationDir !== false ? declarationDir : undefined
+    }),
+    commonjs({
+      extensions: ['.js']
+    }),
+    json()
+  ]
+}
 
 function createNodeConfig(isProduction: boolean) {
   return defineConfig({
@@ -26,22 +55,13 @@ function createNodeConfig(isProduction: boolean) {
       sourcemap: !isProduction
     },
     external: [
-      'commitizen/dist/commitizen',
-      'commitizen/dist/cli/strategies',
+      'commitizen/dist/commitizen.js',
+      'commitizen/dist/cli/strategies.js',
+      'isomorphic-git/http/node',
       ...Object.keys(require('./package.json').dependencies),
       ...(isProduction ? [] : Object.keys(require('./package.json').devDependencies))
     ],
-    plugins: [
-      typescript({
-        tsconfig: 'src/node/tsconfig.json',
-        module: 'esnext',
-        target: 'es2019',
-        include: ['src/**/*.ts', 'types/**'],
-        esModuleInterop: true,
-        allowSyntheticDefaultImports: false,
-        ...(isProduction ? {} : { declaration: true, declarationDir: resolve(__dirname, 'dist/') })
-      })
-    ]
+    plugins: createNodePlugins(isProduction, false, isProduction ? false : resolve(__dirname, 'dist/node'))
   })
 }
 

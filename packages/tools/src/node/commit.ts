@@ -1,14 +1,15 @@
 import { bootstrap } from './commit/git-cz'
-import { dirname, join } from 'path'
-import readPkgUp from 'read-pkg-up'
+import { join, dirname as dirname$0 } from 'path'
+import { readPackageUp, ReadResult } from 'read-pkg-up'
+import { dirname } from './utils'
 
 async function start() {
-  const { path } = (await readPkgUp({ cwd: __dirname })) as readPkgUp.NormalizedReadResult
-
+  const { path } = (await readPackageUp({ cwd: dirname(import.meta.url) })) as ReadResult
+  console.log('path', path, dirname$0(path))
   bootstrap({
-    cliPath: join(dirname(path), 'node_modules', 'commitizen'),
+    cliPath: join(dirname$0(path), 'node_modules', 'commitizen'),
     config: {
-      path: join(dirname(path), 'node_modules', '@easydo/cz')
+      path: join(dirname$0(path), 'node_modules', '@easydo/cz')
     }
   })
 }

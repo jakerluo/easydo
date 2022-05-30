@@ -1,4 +1,5 @@
 import { cac } from 'cac'
+import { VERSION } from './constants'
 
 const tools = cac('easydo')
 
@@ -13,5 +14,5 @@ tools
   })
 
 tools.help()
-tools.version(require('../../package.json').version)
+tools.version(VERSION)
 tools.parse()

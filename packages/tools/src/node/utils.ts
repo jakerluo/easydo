@@ -1,6 +1,7 @@
 import { existsSync, readFileSync, statSync } from 'fs'
 import { platform } from 'os'
-import { posix, join, dirname } from 'path'
+import { posix, join, dirname as dirname$0 } from 'path'
+import { fileURLToPath, URL } from 'url'
 
 export function slash(p: string): string {
   return p.replace(/\\/g, '/')
@@ -19,7 +20,7 @@ export function lookupFile(dir: string, formats: string[], pathOnly = false): st
       return pathOnly ? fullPath : readFileSync(fullPath, 'utf-8')
     }
   }
-  const parentDir = dirname(dir)
+  const parentDir = dirname$0(dir)
   if (parentDir !== dir) {
     return lookupFile(parentDir, formats, pathOnly)
   }
@@ -27,4 +28,9 @@ export function lookupFile(dir: string, formats: string[], pathOnly = false): st
 
 export function arraify<T>(target: T | T[]): T[] {
   return Array.isArray(target) ? target : [target]
+}
+
+export function dirname(path: string | URL) {
+  const filename = fileURLToPath(path)
+  return dirname$0(filename)
 }
