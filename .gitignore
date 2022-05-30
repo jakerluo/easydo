@@ -1,6 +1,8 @@
 # ide
 .idea
 
+.husky/_
+
 # Logs
 logs
 *.log

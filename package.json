@@ -14,7 +14,8 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "format": "prettier --write .",
-    "commit": "easydo-tools commit"
+    "commit": "easydo-tools commit",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
   },
   "devDependencies": {
     "@easydo/tools": "workspace:^0.0.0",
+    "husky": "^8.0.1",
     "prettier": "^2.6.2"
   }
 }

@@ -5,9 +5,11 @@ importers:
   .:
     specifiers:
       '@easydo/tools': workspace:^0.0.0
+      husky: ^8.0.1
       prettier: ^2.6.2
     devDependencies:
       '@easydo/tools': link:packages/tools
+      husky: 8.0.1
       prettier: 2.6.2
 
   packages/cz:
@@ -857,6 +859,12 @@ packages:
     dependencies:
       lru-cache: 6.0.0
     dev: false
+
+  /husky/8.0.1:
+    resolution: {integrity: sha512-xs7/chUH/CKdOCs7Zy0Aev9e/dKOMZf3K1Az1nar3tzlv0jfqnYtu235bstsWTmXOR0EfINrPa97yy4Lz6RiKw==}
+    engines: {node: '>=14'}
+    hasBin: true
+    dev: true
 
   /iconv-lite/0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}
