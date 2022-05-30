@@ -137,6 +137,10 @@ class GitFlow {
   }
 
   private async selectAddFiles() {
+    if (this.config.inlineConfig.all) {
+      this.needAddFiles = this.allChangedFiles.map(([, file]) => file)
+      return
+    }
     const choices: Choice[] = this.allChangedFiles.map(([status, file]) => ({
       title: `${status} - ${file}`,
       value: file,

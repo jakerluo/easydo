@@ -16,6 +16,7 @@ export interface UserConfig {
 export interface InlineConfig extends UserConfig {
   configFile?: string | false
   envFile?: false
+  all?: boolean
 }
 
 export type ResolvedConfig = Readonly<
