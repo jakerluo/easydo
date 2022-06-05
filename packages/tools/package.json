@@ -1,23 +1,57 @@
 {
   "name": "@easydo/tools",
   "version": "0.0.0",
+  "private": false,
   "description": "工具集合",
+  "keywords": [
+    "tools"
+  ],
+  "homepage": "https:/github.com/jakerluo/easydo/tree/main/packages/tools#readme",
+  "bugs": {
+    "url": "https:/github.com/jakerluo/easydo/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jakerluo/easydo.git",
+    "directory": "packages/tools"
+  },
+  "license": "MIT",
+  "author": "jakerluo",
   "type": "module",
   "main": "./dist/node/index.js",
   "module": "./dist/node/index.js",
   "types": "./dist/node/index.d.ts",
-  "author": "jakerluo",
   "bin": {
-    "easydo-tools": "./bin/easydo-tools.js"
+    "edo-tools": "./bin/edo-tools.js"
   },
   "scripts": {
     "build": "rollup --config rollup.config.ts --configPlugin typescript",
     "start": "rollup --config rollup.config.ts --configPlugin typescript -w"
   },
-  "keywords": [
-    "tools"
-  ],
-  "license": "ISC",
+  "dependencies": {
+    "@easydo/cz": "workspace:^0.0.0",
+    "@pnpm/find-workspace-packages": "^4.0.9",
+    "@pnpm/logger": "^4.0.0",
+    "@pnpm/types": "^8.0.1",
+    "@types/prompts": "^2.0.14",
+    "@types/uuid": "^8.3.4",
+    "cac": "^6.7.12",
+    "cfork": "^1.8.0",
+    "chalk": "^5.0.1",
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "^3.3.0",
+    "dotenv": "^16.0.1",
+    "dotenv-expand": "^8.0.3",
+    "esbuild": "^0.14.42",
+    "import-local": "^3.1.0",
+    "isomorphic-git": "^1.17.2",
+    "log4js": "^6.5.2",
+    "node-emoji": "^1.11.0",
+    "prompts": "^2.4.2",
+    "read-pkg-up": "^9.1.0",
+    "sort-package-json": "^1.57.0",
+    "uuid": "^8.3.2"
+  },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.0",
     "@rollup/plugin-json": "^4.1.0",
@@ -28,24 +62,5 @@
     "source-map-support": "^0.5.21",
     "tslib": "^2.4.0",
     "typescript": "^4.7.2"
-  },
-  "dependencies": {
-    "@easydo/cz": "workspace:^0.0.0",
-    "@types/prompts": "^2.0.14",
-    "@types/uuid": "^8.3.4",
-    "cac": "^6.7.12",
-    "cfork": "^1.8.0",
-    "chalk": "^5.0.1",
-    "commitizen": "^4.2.4",
-    "cz-conventional-changelog": "^3.3.0",
-    "dotenv": "^16.0.1",
-    "dotenv-expand": "^8.0.3",
-    "import-local": "^3.1.0",
-    "isomorphic-git": "^1.17.2",
-    "log4js": "^6.5.2",
-    "node-emoji": "^1.11.0",
-    "prompts": "^2.4.2",
-    "read-pkg-up": "^9.1.0",
-    "uuid": "^8.3.2"
   }
 }

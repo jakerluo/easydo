@@ -10,21 +10,23 @@ interface GlobalCLIOptions {
   config?: string
 }
 
-const tools = cac('easydo')
+const tools = cac('edo')
 
 tools.option('-c, --config <file>', `[string] use specified config file`)
 
-tools.command('work [branchName]').action(async (branchName: string) => {
+tools
+  .command('pkg')
+  .option('-m, --manager', '[string] use package manager')
+  .action(async () => {
+    const { pkg } = await import('./pkg')
+    await pkg()
+    runTime()
+  })
+
+tools.command('work [branchName]').action(async () => {
   const { work } = await import('./work')
   work()
-
-  const edoStartTime = global.__EDO_START_TIME__ ?? false
-
-  const startupDurationString = edoStartTime
-    ? chalk.dim(`ready in ${chalk.white(chalk.bold(Math.ceil(performance.now() - edoStartTime)))} ms`)
-    : ''
-
-  logger.info(`${chalk.green(emoji.get('fire'))} ${chalk.bold('Done!')} ${startupDurationString}`)
+  runTime()
 })
 
 tools
@@ -37,16 +39,20 @@ tools
       all: options.all,
       configFile: options.config
     })
-    const edoStartTime = global.__EDO_START_TIME__ ?? false
-
-    const startupDurationString = edoStartTime
-      ? chalk.dim(`ready in ${chalk.white(chalk.bold(Math.ceil(performance.now() - edoStartTime)))} ms`)
-      : ''
-
-    logger.info(`${chalk.green(emoji.get('fire'))} ${chalk.bold('Done!')} ${startupDurationString}`)
+    runTime()
   })
 
 tools.help()
 tools.version(VERSION)
 tools.parse()
 //cow
+
+function runTime() {
+  const edoStartTime = global.__EDO_START_TIME__ ?? false
+
+  const startupDurationString = edoStartTime
+    ? chalk.dim(`ready in ${chalk.white(chalk.bold(Math.ceil(performance.now() - edoStartTime)))} ms`)
+    : ''
+
+  logger.info(`${chalk.green(emoji.get('fire'))} ${chalk.bold('Done!')} ${startupDurationString}`)
+}

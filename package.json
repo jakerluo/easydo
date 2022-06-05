@@ -1,35 +1,36 @@
 {
-  "name": "iyo-monorepo",
+  "name": "edo-monorepo",
   "private": true,
-  "engines": {
-    "node": ">=14.6.0"
-  },
-  "homepage": "https://github.com/jakerluo/iyo#readme",
+  "description": "iyo 工具集合",
   "keywords": [
     "frontend",
     "iyo",
     "tools"
   ],
-  "description": "iyo 工具集合",
-  "scripts": {
-    "preinstall": "npx only-allow pnpm",
-    "format": "prettier --write .",
-    "commit": "easydo-tools commit",
-    "work": "easydo-tools work",
-    "prepare": "husky install"
+  "homepage": "https://github.com/jakerluo/easydo#readme",
+  "bugs": {
+    "url": "https://github.com/jakerluo/iyo/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jakerluo/iyo.git"
+    "url": "https://github.com/jakerluo/easydo.git"
   },
-  "author": "jakerluo",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/jakerluo/iyo/issues"
+  "author": "jakerluo",
+  "scripts": {
+    "commit": "edo-tools commit",
+    "format": "prettier --write .",
+    "preinstall": "npx only-allow pnpm",
+    "pkgFiles": "edo-tools pkg",
+    "prepare": "husky install",
+    "work": "edo-tools work"
   },
   "devDependencies": {
     "@easydo/tools": "workspace:^0.0.0",
     "husky": "^8.0.1",
     "prettier": "^2.6.2"
+  },
+  "engines": {
+    "node": ">=14.6.0"
   }
 }

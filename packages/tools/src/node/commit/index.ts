@@ -40,7 +40,7 @@ export type Status =
 export type FileStatus = [Status, string]
 
 class GitFlow {
-  filterKeys: Status[] = ['*modified', '*deleted', '*added']
+  filterKeys: Status[] = ['*modified', '*deleted', '*added', 'modified', 'deleted', 'added']
   allChangedFiles: FileStatus[] = []
   allFilesStatus: FileStatus[] = []
 
@@ -168,11 +168,11 @@ class GitFlow {
   }
 
   private async filterChangedFiles(files: string[]) {
-    this.allFilesStatus = await Promise.all(files.map((file) => this.filterChangedFile(file)))
+    this.allFilesStatus = await Promise.all(files.map((file) => GitFlow.filterChangedFile(file)))
     this.allChangedFiles = this.allFilesStatus.filter(([status]) => this.filterKeys.includes(status))
   }
 
-  private async filterChangedFile(file: string): Promise<FileStatus> {
+  static async filterChangedFile(file: string): Promise<FileStatus> {
     const _status = await status({ fs, dir: process.cwd(), filepath: file })
     return [_status, file]
   }
