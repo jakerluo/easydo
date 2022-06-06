@@ -5,6 +5,8 @@ import typescript from '@rollup/plugin-typescript'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 
+const isProd = process.env.NODE_ENV === 'production'
+
 const sharedNodeOptions = defineConfig({
   treeshake: {
     moduleSideEffects: 'no-external',
@@ -14,7 +16,7 @@ const sharedNodeOptions = defineConfig({
   output: {
     dir: resolve(__dirname, 'dist'),
     entryFileNames: 'node/[name].js',
-    chunkFileNames: 'node/chunks/[name]-[hash].js',
+    chunkFileNames: isProd ? 'node/chunks/[name]-[hash].js' : 'node/chunks/[name].js',
     exports: 'named',
     format: 'esm',
     externalLiveBindings: false,

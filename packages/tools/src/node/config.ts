@@ -11,6 +11,7 @@ import { pathToFileURL } from 'url'
 
 import logger, { Logger } from './logger'
 import { createRequire } from 'module'
+import { InitOptions } from './init'
 
 export interface ConfigEnv {
   command?: string
@@ -28,9 +29,12 @@ export interface UserConfig {
   envPrefix?: string
   logLevel?: string
   packageManager?: 'npm' | 'yarn' | 'pnpm' | 'lerna'
+  configName?: string
+  needUpdate?: boolean
+  registry?: string
 }
 
-export interface InlineConfig extends UserConfig {
+export interface InlineConfig extends UserConfig, InitOptions {
   configFile?: string | false
   envFile?: false
   all?: boolean

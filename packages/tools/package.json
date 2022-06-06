@@ -6,6 +6,10 @@
   "keywords": [
     "tools"
   ],
+  "files": [
+    "bin",
+    "dist"
+  ],
   "homepage": "https:/github.com/jakerluo/easydo/tree/main/packages/tools#readme",
   "bugs": {
     "url": "https:/github.com/jakerluo/easydo/issues"
@@ -33,6 +37,7 @@
     "@pnpm/find-workspace-packages": "^4.0.9",
     "@pnpm/logger": "^4.0.0",
     "@pnpm/types": "^8.0.1",
+    "@types/mkdirp": "^1.0.2",
     "@types/prompts": "^2.0.14",
     "@types/uuid": "^8.3.4",
     "cac": "^6.7.12",
@@ -46,10 +51,15 @@
     "import-local": "^3.1.0",
     "isomorphic-git": "^1.17.2",
     "log4js": "^6.5.2",
+    "mkdirp": "^1.0.4",
     "node-emoji": "^1.11.0",
+    "npm-updater": "^3.0.3",
     "prompts": "^2.4.2",
+    "proxy-agent": "^5.0.0",
     "read-pkg-up": "^9.1.0",
+    "registry-url": "^6.0.0",
     "sort-package-json": "^1.57.0",
+    "urllib": "^2.38.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

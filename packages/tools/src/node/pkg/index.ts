@@ -1,5 +1,4 @@
 import { InlineConfig, resolveConfig, ResolvedConfig } from '../config'
-import { lookupFile } from '../utils'
 import logger from '../logger'
 import { join, dirname, relative } from 'path'
 import { sortPackageJson } from 'sort-package-json'
@@ -38,7 +37,6 @@ export interface WorkspaceInfo {
 class Pkg {
   private readonly config: ResolvedConfig
   private root: string = process.cwd()
-  private rootPkg: string = ''
   private rootPkgPath: string = ''
   private packageManager: 'pnpm' | 'yarn' | 'npm' | 'lerna' = 'npm'
   private workspaceInfo: WorkspaceInfo[] = []
@@ -90,7 +88,7 @@ class Pkg {
       this.workspaceInfo = wpInfo.map((wp) => ({
         dir: wp.dir,
         manifest: wp.manifest,
-        pkgPath: join(wp.dir, 'package.json')
+        pkgPath: join(wp.dir, '`  ``')
       }))
     }
   }

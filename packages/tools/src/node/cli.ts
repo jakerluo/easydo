@@ -1,9 +1,10 @@
 import { cac } from 'cac'
 import { VERSION } from './constants'
-import type { CommonOptions } from './commit/index'
 import chalk from 'chalk'
 import logger from './logger'
 import emoji from 'node-emoji'
+import type { InitOptions } from './init'
+import type { CommonOptions } from './commit/index'
 
 interface GlobalCLIOptions {
   c?: string
@@ -13,6 +14,27 @@ interface GlobalCLIOptions {
 const tools = cac('edo')
 
 tools.option('-c, --config <file>', `[string] use specified config file`)
+
+tools.command('release [packageName]').action(async (packageName: string, options: GlobalCLIOptions) => {
+  console.log(packageName, options)
+})
+
+tools
+  .command('init [configName]')
+  .option('--type', '[string] boilerplate type')
+  .option('-d, --dir', '[string] target directory')
+  .option('-f, --force', '[boolean] force to override directory')
+  .option('-t, --template', '[String] use specified local template')
+  .option('-u, --needUpdate', '[boolean] need update cli')
+  .action(async (configName: string, options: GlobalCLIOptions & InitOptions) => {
+    const { init } = await import('./init')
+    await init({
+      dir: options.dir,
+      force: options.force,
+      configName,
+      configFile: options.config
+    })
+  })
 
 tools
   .command('pkg')

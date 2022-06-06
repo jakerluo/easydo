@@ -22,8 +22,13 @@
     "format": "prettier --write .",
     "preinstall": "npx only-allow pnpm",
     "pkgFiles": "edo-tools pkg",
+    "init": "edo-tools init",
     "prepare": "husky install",
     "work": "edo-tools work"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "http://localhost:4873/"
   },
   "devDependencies": {
     "@easydo/tools": "workspace:^0.0.0",
