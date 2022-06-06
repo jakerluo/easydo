@@ -80,6 +80,7 @@ class GitFlow {
       fs,
       http,
       dir: '',
+      force: true,
       onAuth: () => ({ username: GITHUB_TOKEN }),
       onAuthFailure: (url, auth) => {
         console.log(url, auth)
