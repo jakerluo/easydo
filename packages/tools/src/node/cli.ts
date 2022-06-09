@@ -22,16 +22,22 @@ tools.command('release [packageName]').action(async (packageName: string, option
 tools
   .command('init [configName]')
   .option('--type', '[string] boilerplate type')
-  .option('-d, --dir', '[string] target directory')
+  .option('-d, --dir <dir>', '[string] target directory')
   .option('-f, --force', '[boolean] force to override directory')
-  .option('-t, --template', '[String] use specified local template')
+  .option('--template <dir>', '[String] use specified local template')
   .option('-u, --needUpdate', '[boolean] need update cli')
+  .option('--package <name>', '[string] boilerplate package name')
+  .option('--silent', `[boolean] don't ask, just use default value`)
   .action(async (configName: string, options: GlobalCLIOptions & InitOptions) => {
     const { init } = await import('./init')
     await init({
       dir: options.dir,
+      silent: options.silent,
+      type: options.type,
       force: options.force,
       configName,
+      package: options.package,
+      template: options.template,
       configFile: options.config
     })
   })
@@ -67,6 +73,7 @@ tools
 tools.help()
 tools.version(VERSION)
 tools.parse()
+
 //cow
 
 function runTime() {

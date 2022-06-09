@@ -9,33 +9,35 @@
   ],
   "homepage": "https://github.com/jakerluo/easydo#readme",
   "bugs": {
-    "url": "https://github.com/jakerluo/iyo/issues"
+    "url": "https:/github.com/jakerluo/easydo/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jakerluo/easydo.git"
+    "url": "https://github.com/jakerluo/easydo.git",
+    "directory": ""
   },
   "license": "MIT",
   "author": "jakerluo",
   "scripts": {
     "commit": "edo-tools commit",
     "format": "prettier --write .",
+    "init": "edo-tools init --dir background/ccc",
     "preinstall": "npx only-allow pnpm",
     "pkgFiles": "edo-tools pkg",
-    "init": "edo-tools init",
     "prepare": "husky install",
     "work": "edo-tools work"
   },
-  "publishConfig": {
-    "access": "public",
-    "registry": "http://localhost:4873/"
-  },
   "devDependencies": {
+    "@easydo/init-config": "workspace:^0.0.0",
     "@easydo/tools": "workspace:^0.0.0",
     "husky": "^8.0.1",
     "prettier": "^2.6.2"
   },
   "engines": {
     "node": ">=14.6.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "http://localhost:4873/"
   }
 }

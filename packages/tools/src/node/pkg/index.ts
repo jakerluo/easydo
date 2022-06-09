@@ -88,7 +88,7 @@ class Pkg {
       this.workspaceInfo = wpInfo.map((wp) => ({
         dir: wp.dir,
         manifest: wp.manifest,
-        pkgPath: join(wp.dir, '`  ``')
+        pkgPath: join(wp.dir, 'package.json')
       }))
     }
   }
@@ -102,6 +102,7 @@ class Pkg {
       await this.workspaceInfo.reduce((prev, wp) => {
         return prev.then(async () => {
           const newPkgInfo = await this.completionPkg(wp.manifest, wp.pkgPath)
+          console.log(wp.pkgPath)
           Pkg.sortPkgFile(newPkgInfo, wp.pkgPath)
         })
       }, Promise.resolve())

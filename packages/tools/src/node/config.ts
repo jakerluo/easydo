@@ -1,4 +1,4 @@
-import { extname, join, resolve } from 'path'
+import { extname, join, resolve, dirname } from 'path'
 import { existsSync, readFileSync, realpathSync, unlinkSync, writeFileSync } from 'fs'
 import { parse } from 'dotenv'
 import { expand } from 'dotenv-expand'
@@ -32,6 +32,7 @@ export interface UserConfig {
   configName?: string
   needUpdate?: boolean
   registry?: string
+  cacheDir?: string
 }
 
 export interface InlineConfig extends UserConfig, InitOptions {
@@ -92,7 +93,15 @@ export async function resolveConfig(
   const envDir = config.envDir ? normalizePath(resolve(resolvedRoot, config.envDir)) : resolvedRoot
   const userEnv = inlineConfig.envFile !== false && loadEnv(mode, envDir, resolveEnvPrefix(config))
 
-  const isProduction = (process.env.EDO_USER_NODE_ENV || mode) === 'production'
+  const isProduction = (process.env.NODE_ENV || process.env.EDO_USER_NODE_ENV || mode) === 'production'
+
+  const pkgPath = lookupFile(resolvedRoot, ['package.json'], true)
+  let cacheDir = join(resolvedRoot, '.edo')
+  if (config.cacheDir) {
+    cacheDir = resolve(resolvedRoot, config.cacheDir)
+  } else if (pkgPath) {
+    cacheDir = join(dirname(pkgPath), 'node_modules', '.edo')
+  }
 
   const resolved: ResolvedConfig = {
     ...config,
@@ -103,6 +112,7 @@ export async function resolveConfig(
     mode,
     isProduction,
     logger,
+    cacheDir,
     env: {
       ...userEnv,
       MODE: mode,
