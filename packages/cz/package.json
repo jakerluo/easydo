@@ -1,0 +1,34 @@
+{
+  "name": "@easydo/cz",
+  "version": "0.0.0",
+  "private": false,
+  "description": "custom cz hook",
+  "keywords": [],
+  "homepage": "https:/github.com/jakerluo/easydo/tree/main/packages/cz#readme",
+  "bugs": {
+    "url": "https:/github.com/jakerluo/easydo/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jakerluo/easydo.git",
+    "directory": "packages/cz"
+  },
+  "license": "MIT",
+  "author": "jakerluo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./config.js"
+    }
+  },
+  "dependencies": {
+    "@commitlint/load": "^17.0.0",
+    "cfork": "^1.8.0",
+    "commitizen": "^4.2.4",
+    "conventional-commit-types": "^3.0.0",
+    "cz-conventional-changelog": "^3.3.0"
+  }
+}

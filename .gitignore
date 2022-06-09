@@ -1,5 +1,7 @@
 # ide
 .idea
+.history
+.husky/_
 
 # Logs
 logs
@@ -7,3 +9,11 @@ logs
 
 # deps
 node_modules
+
+# build folder
+dist
+
+# env
+.env.local
+
+.DS_Store
