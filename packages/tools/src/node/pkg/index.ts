@@ -153,6 +153,7 @@ class Pkg {
         }
       }
     }
+    homepage = homepage.replace(/git@github.com:/, 'https://github.com/')
 
     const question: Array<prompts.PromptObject<QuestionKey>> = [
       {
@@ -182,7 +183,9 @@ class Pkg {
       {
         type: 'text',
         name: 'bugs',
-        initial: pkgInfo.bugs?.url || join(remoteUrl.replace(/\.git$/, ''), 'issues'),
+        initial:
+          pkgInfo.bugs?.url ||
+          join(remoteUrl.replace(/\.git$/, ''), 'issues').replace(/git@github.com:/, 'https://github.com/'),
         message: `please input your ${chalk.cyan(pkgInfo.name)} package bugs`
       }
     ]

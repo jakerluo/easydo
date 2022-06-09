@@ -1,0 +1,17 @@
+{
+  "name": "@easydo/edo-empty-sub-package-simple",
+  "version": "0.0.0",
+  "private": false,
+  "type": "module",
+  "homepage": "https://github.com/jakerluo/easydo/tree/main/packages/empty-sub-package-simple#readme",
+  "bugs": {
+    "url": "https://github.com/jakerluo/easydo/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:jakerluo/easydo.git",
+    "directory": "packages/empty-sub-package-simple"
+  },
+  "license": "MIT",
+  "author": "jakerluo"
+}

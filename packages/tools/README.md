@@ -2,7 +2,8 @@
 
 - [x] `pkg` api => 补充，排序完善 `package.json`
 - [x] `commit` api
-- [ ] `work` api
+- [x] `work` api
+- [x] `init` api
 
 ## commit
 

@@ -1,0 +1,9 @@
+{
+  "name": "@{{org}}/{{name}}",
+  "author": "{{author}}",
+  "version": "0.0.0",
+  "description": "{{description}}",
+  "type": "module",
+  "main": "./dist/index.js",
+  "files": ["dist"]
+}

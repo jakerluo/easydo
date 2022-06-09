@@ -1,21 +1,12 @@
 {
   "name": "@easydo/init-config",
   "version": "0.0.0",
-  "type": "module",
   "private": false,
   "description": "init config",
   "keywords": [],
   "homepage": "https:/github.com/jakerluo/easydo/tree/main/packages/init-config#readme",
   "bugs": {
     "url": "https:/github.com/jakerluo/easydo/issues"
-  },
-  "config": {
-    "boilerplate": {
-      "simple": {
-        "package": "iedo-boilerplate-simple",
-        "description": "Simple iedo app boilerplate"
-      }
-    }
   },
   "repository": {
     "type": "git",
@@ -24,7 +15,16 @@
   },
   "license": "MIT",
   "author": "jakerluo",
+  "type": "module",
   "files": [
     "index.js"
-  ]
+  ],
+  "config": {
+    "boilerplate": {
+      "simple": {
+        "package": "edo-boilerplate-simple",
+        "description": "Simple edo app boilerplate"
+      }
+    }
+  }
 }

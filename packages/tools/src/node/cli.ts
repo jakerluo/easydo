@@ -74,8 +74,6 @@ tools.help()
 tools.version(VERSION)
 tools.parse()
 
-//cow
-
 function runTime() {
   const edoStartTime = global.__EDO_START_TIME__ ?? false
 

@@ -158,6 +158,11 @@ class InitCommand {
       const from = join(src, file)
       const fileName = this.fileMapping[basename] || basename
       const to = join(targetDir, dirname, this.replaceTemplate(fileName, locals))
+      const { dir: toDirname } = parse(to)
+
+      if (!existsSync(toDirname)) {
+        mkdirp.sync(toDirname)
+      }
 
       const stats = lstatSync(from)
       if (stats.isSymbolicLink()) {
@@ -180,6 +185,7 @@ class InitCommand {
     })
     return files
   }
+
   private replaceTemplate(content: any, scope: Record<string, unknown> = {}) {
     return content.toString().replace(/(\\)?{{ *(\w+) *}}/g, (block: string, skip: string, key: string) => {
       if (skip) {
@@ -188,6 +194,7 @@ class InitCommand {
       return scope.hasOwnProperty(key) ? scope[key] : block
     })
   }
+
   private async askForVariable(targetDir: string, templateDir: string) {
     let questions: Questions | ((arg: InitCommand) => Questions)
     try {
@@ -225,7 +232,6 @@ class InitCommand {
         return result
       }, {} as any)
       logger.info('use default due to --silent, %j', result)
-      console.log('result: ', result)
       return result
     } else {
       const asks: Array<prompts.PromptObject<keyof Questions>> = keys.map((key) => {
