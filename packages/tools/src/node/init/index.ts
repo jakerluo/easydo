@@ -53,7 +53,7 @@ export interface Question extends prompts.PromptObject {
 }
 
 export async function init(inlineConfig: InlineConfig) {
-  const config = await resolveConfig(inlineConfig)
+  const config = await resolveConfig(inlineConfig, 'init', 'production')
   await new InitCommand(config).run()
 }
 

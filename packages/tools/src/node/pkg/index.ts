@@ -11,7 +11,7 @@ import { getConfig } from 'isomorphic-git'
 import * as fs from 'fs'
 
 export async function pkg(inlineConfig: InlineConfig = {}) {
-  const config = await resolveConfig(inlineConfig)
+  const config = await resolveConfig(inlineConfig, 'pkg', 'production')
   await new Pkg(config).run()
 }
 

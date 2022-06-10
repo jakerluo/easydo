@@ -17,7 +17,7 @@ export interface CommonOptions {
 }
 
 export async function commit(inlineConfig: InlineConfig = {}) {
-  const config = await resolveConfig(inlineConfig)
+  const config = await resolveConfig(inlineConfig, 'commit', 'production')
   const gitFlow = new GitFlow(config)
   await gitFlow.init()
 }

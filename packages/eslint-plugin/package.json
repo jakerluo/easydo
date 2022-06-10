@@ -1,0 +1,26 @@
+{
+  "name": "@easydo/eslint-plugin",
+  "version": "0.0.0",
+  "private": false,
+  "description": "eslint plugin for easydo project",
+  "homepage": "https://github.com/jakerluo/easydo/tree/main/packages/eslint-plugin#readme",
+  "bugs": {
+    "url": "https://github.com/jakerluo/easydo/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:jakerluo/easydo.git",
+    "directory": "packages/eslint-plugin"
+  },
+  "license": "MIT",
+  "author": "jakerluo",
+  "type": "module",
+  "main": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@types/eslint": "^8.4.3",
+    "eslint": "^8.17.0"
+  }
+}

@@ -19,6 +19,17 @@ tools.command('release [packageName]').action(async (packageName: string, option
   console.log(packageName, options)
 })
 
+tools.command('build').action(async () => {
+  const { build } = await import('./build')
+  await build()
+  process.on('SIGINT', function () {
+    process.exit(0)
+  })
+  process.on('exit', function () {
+    runTime('all run time')
+  })
+})
+
 tools
   .command('init [configName]')
   .option('--type', '[string] boilerplate type')
@@ -74,11 +85,11 @@ tools.help()
 tools.version(VERSION)
 tools.parse()
 
-function runTime() {
+function runTime(messagePrefix = 'ready in') {
   const edoStartTime = global.__EDO_START_TIME__ ?? false
 
   const startupDurationString = edoStartTime
-    ? chalk.dim(`ready in ${chalk.white(chalk.bold(Math.ceil(performance.now() - edoStartTime)))} ms`)
+    ? chalk.dim(`${messagePrefix} ${chalk.white(chalk.bold(Math.ceil(performance.now() - edoStartTime)))} ms`)
     : ''
 
   logger.info(`${chalk.green(emoji.get('fire'))} ${chalk.bold('Done!')} ${startupDurationString}`)

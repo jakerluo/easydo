@@ -1,8 +1,13 @@
-import { existsSync, readFileSync, statSync } from 'fs'
+import { existsSync, readdirSync, readFileSync, rmSync, statSync } from 'fs'
 import { platform } from 'os'
 import { createRequire } from 'module'
-import { posix, join, dirname as dirname$0 } from 'path'
+import { posix, join, dirname as dirname$0, resolve } from 'path'
 import { fileURLToPath, URL } from 'url'
+
+export const queryRE = /\?.*$/s
+export const hashRE = /#.*$/s
+
+export const cleanUrl = (url: string): string => url.replace(hashRE, '').replace(queryRE, '')
 
 export function slash(p: string): string {
   return p.replace(/\\/g, '/')
@@ -104,4 +109,13 @@ export function mergeConfig(
   isRoot = true
 ): Record<string, any> {
   return mergeConfigRecursively(defaults, overrides, isRoot ? '' : '.')
+}
+
+export function emptyDir(dir: string, skip?: string[]): void {
+  for (const file of readdirSync(dir)) {
+    if (skip?.includes(file)) {
+      continue
+    }
+    rmSync(resolve(dir, file), { recursive: true, force: true })
+  }
 }

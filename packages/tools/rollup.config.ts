@@ -4,6 +4,7 @@ import nodeResolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
+import pkg from './package.json'
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -49,6 +50,7 @@ function createNodeConfig(isProduction: boolean) {
   return defineConfig({
     ...sharedNodeOptions,
     input: {
+      index: resolve(__dirname, 'src/node/index.ts'),
       cli: resolve(__dirname, 'src/node/cli.ts'),
       commit: resolve(__dirname, 'src/node/commit.ts')
     },
@@ -60,10 +62,10 @@ function createNodeConfig(isProduction: boolean) {
       'commitizen/dist/commitizen.js',
       'commitizen/dist/cli/strategies.js',
       'isomorphic-git/http/node',
-      ...Object.keys(require('./package.json').dependencies),
-      ...(isProduction ? [] : Object.keys(require('./package.json').devDependencies))
+      ...Object.keys(pkg.dependencies),
+      ...(isProduction ? [] : Object.keys(pkg.devDependencies))
     ],
-    plugins: createNodePlugins(isProduction, false, isProduction ? false : resolve(__dirname, 'dist/node'))
+    plugins: createNodePlugins(isProduction, !isProduction, isProduction ? false : resolve(__dirname, 'dist/node'))
   })
 }
 

@@ -13,15 +13,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jakerluo/easydo.git",
+    "url": "git@github.com:jakerluo/easydo.git",
     "directory": ""
   },
   "license": "MIT",
   "author": "jakerluo",
+  "type": "module",
   "scripts": {
+    "build": "edo-tools build",
     "commit": "edo-tools commit",
     "format": "prettier --write .",
-    "init": "edo-tools init --dir background/ccc --template boilerplate/empty-sub-package-simple",
+    "init": "edo-tools init --template boilerplate/empty-sub-package-simple",
     "preinstall": "npx only-allow pnpm",
     "postinstall": "pnpm --filter @easydo/tools run build",
     "pkgFiles": "edo-tools pkg",
