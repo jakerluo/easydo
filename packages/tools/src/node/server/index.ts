@@ -1,5 +1,7 @@
 import { ResolvedConfig } from '../config'
 
+export { searchForWorkspaceRoot } from './searchRoot'
+
 export interface DevServer {
   config: ResolvedConfig
 }

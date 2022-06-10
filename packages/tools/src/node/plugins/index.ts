@@ -22,5 +22,5 @@ export async function resolvePlugins(
 
   const buildPlugins = isBuild ? (await import('../build')).resolveBuildPlugins(config) : { pre: [], post: [] }
 
-  return [config.esbuild !== false ? esbuildPlugin(config.esbuild) : undefined].filter(Boolean) as Plugin[]
+  return [config.esbuild !== false ? esbuildPlugin(config.esbuild) : null].filter(Boolean) as Plugin[]
 }
